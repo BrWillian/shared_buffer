@@ -4,11 +4,13 @@
 
 #ifndef SHARED_BUFFER_C_SHARED_BUFFER_H
 #define SHARED_BUFFER_C_SHARED_BUFFER_H
-#define VECTOR_SZ 10000
+#define VECTOR_SZ 1000
 
 struct shared_use_st {
     int flag_lock;
-    char some_text[VECTOR_SZ];
+    int count;
+    int in,out;
+    int some_text[VECTOR_SZ];
 };
 
 #endif //SHARED_BUFFER_C_SHARED_BUFFER_H
