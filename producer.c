@@ -8,20 +8,35 @@
 #include <time.h>
 #include <stdbool.h>
 
+struct shared_use_st* shared_stbuff;
+
 int main() {
     void *shared_memory = (void *) 0;
-    struct shared_use_st *shared_stbuff;
+
     srand((unsigned int) time(NULL));
 
-    int shmid = shmget((key_t)1234, sizeof(struct shared_use_st), 0666 | IPC_CREAT);
+    int shmid = shmget((key_t)1234, sizeof(shared_stbuff), 0666 | IPC_CREAT);
+    printf("%d\n", shmid);
 
-    shared_memory = shmat(shmid, (void *)0, 0);
+    shared_stbuff =(struct shared_use_st *) shmat(shmid, NULL, 0);
+    printf("Memoria anexada em %X\n", (int)shared_stbuff);
 
-    printf("Memoria anexada em %X\n", (int)shared_memory);
+    shared_stbuff->in = 0;
+    shared_stbuff->out = 0;
+    shared_stbuff->count = 0;
 
     while(true){
 
+        int np = rand()%1000;
 
+        while (shared_stbuff->count == VECTOR_SZ);
+        // Wait
+
+        shared_stbuff->some_text[shared_stbuff->in] = np;
+        printf("Producer : wrote, %d at index %d\n", np, shared_stbuff->in);
+        shared_stbuff->in = (shared_stbuff->in +1) % VECTOR_SZ;
+        shared_stbuff->count++;
+        sleep(1);
     }
 
 }
