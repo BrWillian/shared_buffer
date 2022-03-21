@@ -10,8 +10,8 @@
 
 struct shared_use_st* shared_stbuff;
 
+
 int main() {
-    void *shared_memory = (void *) 0;
 
     srand((unsigned int) time(NULL));
 
@@ -24,17 +24,22 @@ int main() {
     shared_stbuff->in = 0;
     shared_stbuff->out = 0;
     shared_stbuff->count = 0;
+    char strchar[VECTOR_SZ];
 
     while(true){
 
-        int np = rand()%1000;
-
-        while (shared_stbuff->count == VECTOR_SZ);
+        while (shared_stbuff->count == BUFFER_SZ);
         // Wait
 
-        shared_stbuff->some_text[shared_stbuff->in] = np;
-        printf("Producer : wrote, %d at index %d\n", np, shared_stbuff->in);
-        shared_stbuff->in = (shared_stbuff->in +1) % VECTOR_SZ;
+        printf("Digite a mensagem a ser consumida: ");
+
+        fgets(strchar, VECTOR_SZ, stdin);
+
+        strncpy(shared_stbuff[shared_stbuff->in].some_text, strchar, sizeof(strchar));
+        printf("Produtor: %s at index %d\n", strchar, shared_stbuff->in);
+
+        //shared_stbuff[shared_stbuff->in] = *shared_stbuff;
+        shared_stbuff->in = (shared_stbuff->in +1) % BUFFER_SZ;
         shared_stbuff->count++;
         sleep(1);
     }
