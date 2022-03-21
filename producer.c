@@ -5,15 +5,12 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <stdlib.h>
-#include <time.h>
 #include <stdbool.h>
 
 struct shared_use_st* shared_stbuff;
 
 
 int main() {
-
-    srand((unsigned int) time(NULL));
 
     int shmid = shmget((key_t)1234, sizeof(shared_stbuff), 0666 | IPC_CREAT);
     printf("%d\n", shmid);
@@ -38,7 +35,6 @@ int main() {
         strncpy(shared_stbuff[shared_stbuff->in].some_text, strchar, sizeof(strchar));
         printf("Produtor: %s at index %d\n", strchar, shared_stbuff->in);
 
-        //shared_stbuff[shared_stbuff->in] = *shared_stbuff;
         shared_stbuff->in = (shared_stbuff->in +1) % BUFFER_SZ;
         shared_stbuff->count++;
         sleep(1);
