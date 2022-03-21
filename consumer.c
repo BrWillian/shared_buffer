@@ -27,7 +27,6 @@ int main(){
         while(shared_stbuff->count == 0);
 
         shared_stbuff->count-- ;
-        int nc = shared_stbuff->some_text[shared_stbuff->out];
 
         printf("Consumer: %s ant index %d\n", shared_stbuff[shared_stbuff->out].some_text, shared_stbuff->out);
 
