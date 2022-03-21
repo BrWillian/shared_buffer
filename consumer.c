@@ -23,9 +23,8 @@ int main(){
 
     while(true)
     {
-        printf("Consumer : attempting to read\n");
-        while(shared_stbuff->count == 0)
-            ;	//WAIT
+        printf("Consumer : Tentando ler mensagens\n");
+        while(shared_stbuff->count == 0);
 
         shared_stbuff->count-- ;
         int nc = shared_stbuff->some_text[shared_stbuff->out];
