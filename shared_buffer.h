@@ -4,13 +4,11 @@
 
 #ifndef SHARED_BUFFER_C_SHARED_BUFFER_H
 #define SHARED_BUFFER_C_SHARED_BUFFER_H
-#define VECTOR_SZ 150
-#define BUFFER_SZ 10
+#define TEXT_SZ 2048
 
 struct shared_use_st {
-    int count;
-    int in,out;
-    char some_text[VECTOR_SZ];
+    int written_by_you;
+    char some_text[TEXT_SZ];
 };
 
 
