@@ -53,7 +53,7 @@ int main()
 
 
 
-        while(shared_stuff->written_by_you == 1);
+        while(shared_stuff->flag == 1);
         printf("Digite a mensagem a ser consumida: ");
         fgets(buffer, BUFSIZ, stdin);
 
@@ -61,7 +61,7 @@ int main()
         if(!semaphore_p()) exit(EXIT_FAILURE);
 
         strncpy(shared_stuff->some_text, buffer, TEXT_SZ);
-        shared_stuff->written_by_you = 1;
+        shared_stuff->flag = 1;
 
         // fim da zona critia
         if(!semaphore_v()) exit(EXIT_FAILURE);

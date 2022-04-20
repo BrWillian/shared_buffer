@@ -55,15 +55,15 @@ int main()
 
 
     shared_stuff = (struct shared_use_st *)shared_memory;
-    shared_stuff->written_by_you = 0;
+    shared_stuff->flag = 0;
     while(running) {
 
         if(!semaphore_p()) exit(EXIT_FAILURE);
 
-        if (shared_stuff->written_by_you) {
+        if (shared_stuff->flag) {
             printf("Consumer: %s", shared_stuff->some_text);
              /* make the other process wait for us ! */
-            shared_stuff->written_by_you = 0;
+            shared_stuff->flag = 0;
             if (strncmp(shared_stuff->some_text, "end", 3) == 0) {
                 running = 0;
             }
